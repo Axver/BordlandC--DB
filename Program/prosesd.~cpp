@@ -1,0 +1,126 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "prosesd.h"
+
+#include "prosesd.h"
+#include "laporand.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm11 *Form11;
+//---------------------------------------------------------------------------
+__fastcall TForm11::TForm11(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm11::Button2Click(TObject *Sender)
+{
+        Form11->Close();
+        Form9->Show();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm11::Button1Click(TObject *Sender)
+{
+        int tb1,tb2,lat1,lat2,q1,q2,s1,s2,s3,tugas,angka,uts,uas;
+        String huruf;
+        tb1 = StrToInt(Edit4->Text);
+        tb2 = StrToInt(Edit5->Text);
+        lat1 = StrToInt(Edit6->Text);
+        lat2 = StrToInt(Edit7->Text);
+        q1 = StrToInt(Edit8->Text);
+        q2 = StrToInt(Edit9->Text);
+        s1 = StrToInt(Edit10->Text);
+        s2 = StrToInt(Edit11->Text);
+        s3 = StrToInt(Edit12->Text);
+        uas = StrToInt(Edit13->Text);
+
+        tugas = (tb1+tb2+lat1+lat2+q1+q2)/6;
+        uts = (25*s1/100)+(35*s2/100)+(40*s3/100);
+        angka = (40*tugas/100)+(25*uts/100)+(35*uas/100);
+
+        Edit14->Text=uts;
+        Edit15->Text=angka;
+        Edit17->Text=tugas;
+
+        if(angka>=85&&angka<=100)
+        {
+                huruf="A";
+        }
+        else if(angka>=80&&angka<85)
+        {
+                huruf="A-";
+        }
+        else if(angka>=75&&angka<80)
+        {
+                huruf="B+";
+        }
+        else if(angka>=70&&angka<75)
+        {
+                huruf="B";
+        }
+        else if(angka>=65&&angka<70)
+        {
+                huruf="B-";
+        }
+        else if(angka>=60&&angka<65)
+        {
+                huruf="C+";
+        }
+        else if(angka>=55&&angka<60)
+        {
+                huruf="C";
+        }
+        else if(angka>=40&&angka<=55)
+        {
+                huruf="D";
+        }
+        else
+        {
+                huruf="E";
+        }
+
+        Edit16->Text=huruf;
+
+
+
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm11::Button3Click(TObject *Sender)
+{
+
+          ADOQuery5->SQL->Clear();
+          ADOQuery5->SQL->Text ="INSERT INTO nilai VALUES (:A,:C,:D,:E,:F,:G,:H,:I,:J,:K,:L,:M,:N,:O,:P,:Q) ";
+          ADOQuery5->Parameters->ParamByName("A")->Value=StrToInt(DBEdit1->Text);
+          ADOQuery5->Parameters->ParamByName("B")->Value=StrToInt(DBEdit2->Text);
+          ADOQuery5->Parameters->ParamByName("C")->Value=StrToInt(DBEdit3->Text);
+          ADOQuery5->Parameters->ParamByName("D")->Value=Edit4->Text;
+          ADOQuery5->Parameters->ParamByName("E")->Value=Edit5->Text;
+          ADOQuery5->Parameters->ParamByName("F")->Value=Edit6->Text;
+          ADOQuery5->Parameters->ParamByName("G")->Value=Edit7->Text;
+          ADOQuery5->Parameters->ParamByName("H")->Value=Edit8->Text;
+          ADOQuery5->Parameters->ParamByName("I")->Value=Edit9->Text;
+          ADOQuery5->Parameters->ParamByName("J")->Value=Edit10->Text;
+          ADOQuery5->Parameters->ParamByName("K")->Value=Edit11->Text;
+          ADOQuery5->Parameters->ParamByName("L")->Value=Edit12->Text;
+          ADOQuery5->Parameters->ParamByName("M")->Value=Edit13->Text;
+          ADOQuery5->Parameters->ParamByName("N")->Value=Edit14->Text;
+          ADOQuery5->Parameters->ParamByName("O")->Value=Edit15->Text;
+          ADOQuery5->Parameters->ParamByName("P")->Value=Edit16->Text;
+          ADOQuery5->Parameters->ParamByName("Q")->Value=Edit17->Text;
+          ADOQuery5->Open();
+          ADOQuery5->ExecSQL();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm11::Button4Click(TObject *Sender)
+{
+Form10->QuickRep1->Preview();        
+}
+//---------------------------------------------------------------------------
+
+
